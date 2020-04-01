@@ -5,7 +5,7 @@
 # Documentation source: R/data.R
 
 # Output: This script generates four tibbles:
-#   - rank_classes
+#   - rates
 #   - subject_areas
 #   - presses
 #   - journals_ranking
@@ -28,7 +28,7 @@ path <- here('data-raw')
 cjr_path <- file.path(path, 'RankingCEFAGE-4ed.pdf')
 cjr_txt <- pdf_text(cjr_path)
 
-# Rank classes
+# Journals' rates
 tbl01_txt <- cjr_txt[[3]] %>%
   str_split('\n') %>%
   `[[`(1) %>%
@@ -36,12 +36,13 @@ tbl01_txt <- cjr_txt[[3]] %>%
   trimws() %>%
   str_split('\\s+')
 
-rank_classes <-
+rates <-
   tibble(map_chr(tbl01_txt, ~ .x[1]),
          map_chr(tbl01_txt, ~ paste(.x[-1], collapse = ' '))) %>%
-  row_to_names(row_number = 1L)
+  row_to_names(row_number = 1L) %>%
+  rename(rate = Rank, description = Interpretation)
 
-# Subject Areas
+# Scientific Fields
 tbl02_txt <- cjr_txt[[3]] %>%
   str_split('\n') %>%
   `[[`(1) %>%
@@ -55,10 +56,11 @@ tbl02_txt[32] <- paste(tbl02_txt[32], tbl02_txt[33])
 tbl02_txt <- tbl02_txt[-c(12, 33)]
 tbl02_txt <- str_split(tbl02_txt, '\\s+')
 
-subject_areas <-
+scientific_fields <-
   tibble(map_chr(tbl02_txt, ~ .x[1]),
          map_chr(tbl02_txt, ~ paste(.x[-1], collapse = ' '))) %>%
-  row_to_names(row_number = 1L)
+  row_to_names(row_number = 1L) %>%
+  rename(scientific_field_abbr = Abbreviation, scientific_field = `Subject area`)
 
 # Presses
 tbl03_txt <- cjr_txt[[4]] %>%
@@ -68,13 +70,14 @@ tbl03_txt <- cjr_txt[[4]] %>%
   trimws() %>%
   str_split('\\s+')
 
-presses <-
+publishing_presses <-
   tibble(map_chr(tbl03_txt, ~ .x[1]),
          map_chr(tbl03_txt, ~ paste(.x[-1], collapse = ' '))) %>%
-  row_to_names(row_number = 1L)
+  row_to_names(row_number = 1L) %>%
+  rename(publishing_press_abbr = Abbreviation, publishing_press = Press)
 
 #
-# journals ranking
+# journals
 #
 
 parse_table <- function(txt_lines, col_widths,
@@ -187,31 +190,32 @@ while (i <= nrow(tbl04_1) - 2L) {
   i <- i + 1
 }
 
-journals_ranking <- as_tibble(tbl04_1) %>%
+journals <- as_tibble(tbl04_1) %>%
   remove_empty("rows") %>%
   mutate_all(trimws) %>%
-  mutate(Rate = factor(Rate, levels = c('D', 'C', 'B', 'A', 'AA', 'AAA'), ordered = TRUE))
+  mutate(Rate = factor(Rate, levels = c('D', 'C', 'B', 'A', 'AA', 'AAA'), ordered = TRUE)) %>%
+  rename(journal = Journal, publishing_press_abbr = Press, scientific_field_abbr = Area, rate = Rate)
 
 
 #
 # Exported data
 #
 
-# Rank classes
-readr::write_csv(rank_classes, file.path(path, 'rank_classes.csv'))
-usethis::use_data(rank_classes, compress = "xz", overwrite = TRUE, version = 2)
+# Journals' rates
+readr::write_csv(rates, file.path(path, 'rates.csv'))
+usethis::use_data(rates, compress = "xz", overwrite = TRUE, version = 2)
 
-# Subject Areas
-readr::write_csv(subject_areas, file.path(path, 'subject_areas.csv'))
-usethis::use_data(subject_areas, compress = "xz", overwrite = TRUE, version = 2)
+# Scientific fields
+readr::write_csv(scientific_fields, file.path(path, 'scientific_fields.csv'))
+usethis::use_data(scientific_fields, compress = "xz", overwrite = TRUE, version = 2)
 
 # presses
-readr::write_csv(presses, file.path(path, 'presses.csv'))
-usethis::use_data(presses, compress = "xz", overwrite = TRUE, version = 2)
+readr::write_csv(publishing_presses, file.path(path, 'publishing_presses.csv'))
+usethis::use_data(publishing_presses, compress = "xz", overwrite = TRUE, version = 2)
 
-# journals_ranking
-readr::write_csv(journals_ranking, file.path(path, 'journals_ranking.csv'))
-usethis::use_data(journals_ranking, compress = "xz", overwrite = TRUE, version = 2)
+# journals
+readr::write_csv(journals, file.path(path, 'journals.csv'))
+usethis::use_data(journals, compress = "xz", overwrite = TRUE, version = 2)
 
 
 
