@@ -9,11 +9,11 @@ Authors@R: c(
     )
 Description: CEFAGE Journal Ranking 4th Edition (2016-2019).
 Depends:
-    R (>= 2.10)
+    R (>= 2.10),
+    tibble
 License: CC0
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.0.2
 Imports: 
-    tibble,
     dplyr
