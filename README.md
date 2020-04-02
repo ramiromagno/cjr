@@ -5,6 +5,8 @@
 
 <!-- badges: start -->
 
+[![Travis build
+status](https://travis-ci.org/ramiromagno/cjr.svg?branch=master)](https://travis-ci.org/ramiromagno/cjr)
 <!-- badges: end -->
 
 cjr (CEFAGE-UE Journal Ranking) is an R data package that provides
