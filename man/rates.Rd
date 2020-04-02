@@ -3,7 +3,7 @@
 \docType{data}
 \name{rates}
 \alias{rates}
-\title{CEFAGE-UE journals' ratings}
+\title{CEFAGE-UE journals' rates}
 \format{A data frame with 6 rows (rates) and 2 variables:
 \describe{
   \item{rate}{Rate value.}
@@ -16,7 +16,7 @@
 rates
 }
 \description{
-A dataset containing the different ratings used to classify each journal.
+A dataset containing the different rates used to classify each journal.
 This rating system is by the \href{http://www.cefage.uevora.pt}{Center for
 Advanced Studies in Management and Economics (CEFAGE)}, University of Évora,
 Portugal.

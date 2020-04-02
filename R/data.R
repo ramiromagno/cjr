@@ -1,4 +1,4 @@
-#' CEFAGE-UE Journals' Ranking
+#' CEFAGE-UE journals' ranking
 #'
 #' A dataset containing the ranking of scientific journals, 4th Edition
 #' (2016-2019), authored and provided by the
@@ -28,9 +28,9 @@
 #' @source \url{http://www.cefage.uevora.pt/en/content/download/5988/71181/version/1/file/RankingCEFAGE-4ed.pdf}
 "journals"
 
-#' CEFAGE-UE journals' ratings
+#' CEFAGE-UE journals' rates
 #'
-#' A dataset containing the different ratings used to classify each journal.
+#' A dataset containing the different rates used to classify each journal.
 #' This rating system is by the \href{http://www.cefage.uevora.pt}{Center for
 #' Advanced Studies in Management and Economics (CEFAGE)}, University of Évora,
 #' Portugal.

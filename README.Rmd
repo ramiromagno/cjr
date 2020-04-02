@@ -1,0 +1,88 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+library(tibble)
+```
+
+# cjr
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+cjr (CEFAGE-UE Journal Ranking) is an R data package that provides
+[CEFAGE](http://www.cefage.uevora.pt)’s journal ranking. CEFAGE-UE stands for
+*Center for Advanced Studies in Management and Economics*, a research centre
+from the University of Évora, Portugal.
+
+This package contains four datasets:
+
+- `journals`: CEFAGE-UE journals' ranking
+- `rates`: CEFAGE-UE journals' rate categories
+- `scientific_fields`: Journals' scientific fields
+- `publishing_presses`: Journals' publishing presses
+
+## Installation
+
+You can install cjr with:
+
+``` r
+# Install the development version from GitHub
+devtools::install_github("ramiromagno/cjr")
+```
+
+## Data source
+
+The datasets here provided are for the 4th edition (2016-2019): http://www.cefage.uevora.pt/en/scientific_resources/ranking_de_revistas_cientificas.
+
+## Usage
+
+### CEFAGE-UE ranking of journals
+
+The main dataset, i.e., `journals`, contains the ranking of 903 journals in the field of Economics, Management, and other social sciences, for the period of 2016 thru 2019:
+
+```{r}
+library(cjr)
+journals
+```
+
+Sort journals by rate within scientific domain:
+
+```{r message=FALSE}
+library(dplyr)
+arrange(journals, scientific_field_abbr, desc(rate))
+```
+
+### Rates
+
+The rates defined by CEFAGE-UE to rank journals are listed in `rates`:
+
+```{r}
+rates
+```
+
+### Journals’ scientific fields
+
+Journals' scientific domains abbreviations used in `journals` are provided in `scientific_fields`:
+
+```{r}
+scientific_fields
+```
+
+### Journals’ publishing presses
+
+Journals' publishing presses abbreviations used in `journals` are provided in `publishing_presses`:
+
+```{r}
+publishing_presses
+```
+

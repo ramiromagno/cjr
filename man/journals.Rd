@@ -3,7 +3,7 @@
 \docType{data}
 \name{journals}
 \alias{journals}
-\title{CEFAGE-UE Journals' Ranking}
+\title{CEFAGE-UE journals' ranking}
 \format{A data frame with 913 rows (journals) and 6 variables:
 \describe{
   \item{journal}{Journal name.}
